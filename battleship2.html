@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+    <title>Eric Price CIS 133JS Portfolio</title>
+<script>
+
+
+function print(txt) {
+  var output = document.getElementById("txtArea");
+  output.value = output.value + txt + "\n";
+}
+
+var randomLoc = Math.floor(Math.random() * 5);
+var location1 = randomLoc;
+var location2 = location1 + 1;
+var location3 = location2 + 1;
+var hits = 0;
+var misses = 0;
+var guesses = 0;
+var isSunk = false;
+var stillPlaying = false;
+
+function game() {
+    if (stillPlaying === false) {
+        reset();
+        stillPlaying = true;
+        document.getElementById("txtArea").value = "";
+        document.getElementById("txtInput").value = "";
+    }
+       
+    var guess = document.getElementById("txtInput").value;
+       
+    if (guess.length == 0) {
+        document.getElementById("txtout").innerHTML = "Please enter a valid cell number!";
+    }
+    else if (guess < 0 || guess > 6) {
+        document.getElementById("txtout").innerHTML = "Please enter a valid cell number!";
+    }
+    else {
+        document.getElementById("txtout").innerHTML = ".";
+        guesses = guesses + 1;
+                       
+        if (guess == location1 || guess == location2 || guess == location3) {
+            hits = hits + 1;
+            print("Hit " + hits);
+        }
+        else {
+            misses++;
+            print("Miss " + misses);
+        }
+   
+        if (hits == 3) {
+            isSunk = true;
+            print("You sank my battleship!");
+            stillPlaying = false;
+        }           
+    }
+   
+    if (isSunk) {
+        var stats = "You took " + guesses + " guesses to sink the battleship, " + " Which means you shooting accuracy was " + (3/guesses) ;
+        print(stats);
+        print("\nPress Play Game to go again.");
+    }
+}
+function reset() {
+    randomLoc = Math.floor(Math.random() * 5);
+    location1 = randomLoc;
+    location2 = location1 + 1;
+    location3 = location2 + 1;
+    hits = 0;
+    misses = 0;
+    guesses = 0;
+    isSunk = false;
+}
+   
+//window.onload = function() {alert("window loaded");};
+
+</script>
+</head>
+
+<body>
+
+<h1>Basic BattleShip Game</h1>
+
+<h3>Ready, Aim, Fire!(enter a number from 0-6)</h3>
+
+<p id="txtout">.</p>
+
+<p>
+    <input id ="txtInput" name ="txt" type="text" value="">
+</p>
+
+<p>
+    <button onclick="game()" type= "button">Play Game</button>
+</p>
+
+<p>
+    <textarea cols="60" id="txtArea" readonly="yes" rows="10"></textarea>
+</p>
+
+
+
+
+
+</p>
+
+
+
+</body>
+</html>

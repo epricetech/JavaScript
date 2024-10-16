@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<title>Eric Price CIS 133JS Portfolio</title>
+
+<script>
+function print(txt) {
+  var out = document.getElementById("text1");
+  out.value = out.value + txt + "\n"; }
+  
+  
+function bottle() {
+var word = "bottles";
+var count = 99;
+while (count > 0) {
+	print(count + " " + word + " of beer on the wall");
+	print(count + " " + word + " of beer, ");
+	print("Take one down, pass it around, ");
+count = count - 1;
+if (count > 0) {
+	print(count + " " + word + " of beer on the wall."); }
+else {
+	print("No more " + word + " of beer on the wall.");}}}
+	
+	
+	
+	
+</script></head>
+<body>
+<h1 id="title">99 Bottles of Beer</h1>
+
+	<p id="out">-</p>
+
+		
+<p><input name="action1" onclick="bottle();" type="button" value="Do Stuff" /></p>
+
+<p><textarea id="text1" cols="40" name="text1" rows="12"></textarea></p>
+	
+
+
+</body>
+</html>
