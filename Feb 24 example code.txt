@@ -1,0 +1,108 @@
+<html>
+<head><meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+	
+	<title>Address Book</title>
+	<script>
+var database = [];
+
+// Person constructor
+// To create a new person object:
+//    var p = new Person(firstName, lastName, address);
+// To update the address:
+//    p.setAddress("123 N Second St");
+function Person(first, last, address) {
+  this.fName =  first;
+  this.lName = last;
+  this.addr = address;
+ 
+  this.age = -1;
+  this.phone = "541-XXX-XXXX";
+  this.getPhone = function() {
+    return this.phone;
+  };
+  this.setAddress = function(newAddress) {
+    this.addr = newAddress;
+  };
+
+  this.getString = function() {
+    return "Name: " + this.fName + " " + this.lName + " Address: " + this.addr;
+  };
+  
+}
+
+function getEle(id) {
+  return document.getElementById(id);
+}
+
+function createEntry() {
+  var fName = getEle("fname").value;
+  var lName = getEle("lname").value;
+  var address = getEle("addr").value;
+  var person = new Person(fName, lName, address);
+  //alert( person.getString() );
+  return person;
+}
+
+function addEntry() {
+  if (getEle("fname").value == "") {
+     getEle("error1").innerHTML = "Please enter information!";
+  }
+  else {
+    var person = createEntry();  // get info from the page, create object
+    database.push(person);       // add to array
+  }
+}
+
+function print(id, text, lineEnd) {
+  var out = getEle(id);
+  if (lineEnd === undefined) {
+     lineEnd = "";
+  }
+  out.value = out.value + text + lineEnd;
+}
+
+function printDatabase() {
+  /*for(var i = 0; i < database.length; i++) {
+     print("text1", "[" + i + "] " + database[i].getString(), "\n" );
+  }
+*/
+  for (var x in database) {
+    print("text1", "[" + x + "] " + database[x].getString(), "\n" );
+  }
+}
+
+function deleteEntry() {
+  var item = getEle("index").value;
+  if (item < 0 || item > database.length - 1) {
+    alert("bad item number");
+  }
+  else {
+    database.splice(item,1);
+  }
+}
+
+function clearTextArea(id) {
+  getEle(id).value = "";
+}
+
+</script>
+</head>
+<body>
+<h1>Address Book</h1>
+
+<p>First name: <input id="fname" type="text" /> Last name: <input id="lname" type="text" /><br />
+Address: <input id="addr" type="text" /></p>
+
+<p><button onclick="addEntry();" type="button">Add Entry</button></p>
+
+<p id="error1">--</p>
+
+<p>Index: <input id="index" type="text" /></p>
+
+<p><button onclick="deleteEntry();" type="button">Delete Entry</button></p>
+
+<p><textarea cols="40" id="text1" rows="5"></textarea></p>
+
+<p><button onclick="printDatabase();" type="button">List Database</button><button onclick="clearTextArea('text1');" type="button">Clear</button></p>
+</body>
+</html>
